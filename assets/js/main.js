@@ -425,3 +425,61 @@
 
 })(jQuery, window)
 
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("contact-form");
+    const responseDiv = document.getElementById("form-response");
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Collect form data
+        const formData = {
+            "contact-name": form.querySelector("#contact-name").value,
+            "contact-phone": form.querySelector("#contact-phone").value,
+            "contact-email": form.querySelector("#contact-email").value,
+            "subject": form.querySelector("#subject").value,
+            "contact-message": form.querySelector("#contact-message").value,
+        };
+
+        // Send form data using EmailJS
+        emailjs.send("service_9ib4jmw", "template_pn77qml", formData)
+            .then(function(response) {
+                responseDiv.innerHTML = "<p class='alert alert-success'>Message sent successfully!</p>";
+                form.reset(); // Clear the form
+            }, function(error) {
+                console.error("EmailJS error:", error);
+                responseDiv.innerHTML = "<p class='alert alert-danger'>There was an error sending your message. Please try again later.</p>";
+            });
+    });
+});
+
+
+
+
+    // Initialize EmailJS with your User ID
+    emailjs.init("soc-J8XIU-oed6K5N"); // Replace "YOUR_USER_ID" with your actual EmailJS user ID
+
+    // Function to send email when the form is submitted
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Collect form data using JavaScript
+        const formData = {
+            "contact_name": document.getElementById('contact-name').value,
+            "contact_email": document.getElementById('contact-email').value,
+            "subject": document.getElementById('subject').value,
+            "message": document.getElementById('contact-message').value
+        };
+
+        // Send email using EmailJS
+        emailjs.send("service_9ib4jmw", "template_pn77qml", formData)
+            .then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+                alert('Your message has been sent successfully!');
+                document.getElementById('contact-form').reset(); // Clear the form after sending
+            }, function(error) {
+                console.error('FAILED...', error);
+                alert('There was an error sending your message. Please try again later.');
+            });
+    });
+
