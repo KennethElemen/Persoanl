@@ -475,11 +475,23 @@ document.addEventListener("DOMContentLoaded", function() {
         emailjs.send("service_9ib4jmw", "template_pn77qml", formData)
             .then(function(response) {
                 console.log('SUCCESS!', response.status, response.text);
-                alert('Your message has been sent successfully!');
+                Swal.fire({
+                   
+                    icon: "success",
+                    title: "Your message has been sent, We will get in touch to ",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
                 document.getElementById('contact-form').reset(); // Clear the form after sending
             }, function(error) {
                 console.error('FAILED...', error);
-                alert('There was an error sending your message. Please try again later.');
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'There is an Error sending your message try again later',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
             });
     });
 
